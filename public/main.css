@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
+html {
+  background-color: #333;
+  font-family: 'Oswald', sans-serif;
+}
+
+#alertModal {
+  opacity: 0;
+  transition: 1s all linear;
+  color: rgba(0, 174, 255, 0.3);
+  background: rgba(0, 174, 255, 0.2);
+  border:2px solid rgba(0, 174, 255, 0.2);
+  border-radius: 15px;
+  padding: 10px
+}
