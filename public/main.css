@@ -10,7 +10,18 @@ html {
   transition: 1s all linear;
   color: rgba(0, 174, 255, 0.3);
   background: rgba(0, 174, 255, 0.2);
-  border:2px solid rgba(0, 174, 255, 0.2);
+  border: 2px solid rgba(0, 174, 255, 0.2);
   border-radius: 15px;
-  padding: 10px
+  padding: 10px 20px 10px 20px;
+  position: absolute;
+  right: 10px;
+}
+
+#nameModal {
+  transition: 1s all linear;
+  color: rgba(0, 174, 255, 0.7);
+  background: rgba(0, 174, 255, 0.2);
+  border: 2px solid rgba(0, 174, 255, 0.2);
+  border-radius: 15px;
+  padding: 10px 20px 10px 20px;
 }
