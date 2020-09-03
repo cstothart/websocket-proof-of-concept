@@ -5,6 +5,7 @@ const nameScreen = document.querySelector('#nameScreen');
 const gameScreen = document.querySelector('#gameScreen');
 const playerModal = document.querySelector('#playerModal');
 const playerList = document.querySelector('#playerList');
+const badName = document.querySelector('#badName');
 
 const handleName = () => {
   const nameInput = document.querySelector('#nameField').value;

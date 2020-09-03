@@ -11,7 +11,7 @@ const io = require('socket.io')(server);
 const gameConfig = {
   resources: {
     spawnInterval: 1000,
-    maxNumber: 20,
+    maxNumber: 100,
     // Max resource spawn distance from window center.
     maxXDist: 400,
     maxYDist: 200,
@@ -37,12 +37,13 @@ const deleteResource = resourceId => {
 
 const createResource = () => {
   const resourceId = `r${Math.floor(Math.random()*1000000000).toString()}`;
-  const positivity = [1, -1][Math.floor(Math.random() * 2)];
+  const positivityX = [1, -1][Math.floor(Math.random() * 2)];
+  const positivityY = [1, -1][Math.floor(Math.random() * 2)];
   const newResource = {
     id: resourceId, 
     pos: {
-      xFromCenter: Math.floor(Math.random()*gameConfig.resources.maxXDist)*positivity,
-      yFromCenter: Math.floor(Math.random()*gameConfig.resources.maxYDist)*positivity
+      xFromCenter: Math.floor(Math.random()*gameConfig.resources.maxXDist)*positivityX,
+      yFromCenter: Math.floor(Math.random()*gameConfig.resources.maxYDist)*positivityY
     },
     size: {
       width: gameConfig.resources.width,
