@@ -1,8 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
-html {
+html, body{
   background-color: #333;
   font-family: 'Oswald', sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+#gameScreen {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 #alertModal {
@@ -15,13 +25,40 @@ html {
   padding: 10px 20px 10px 20px;
   position: absolute;
   right: 10px;
+  top: 10px;
+  z-index: 10;
 }
 
 #nameModal {
-  transition: 1s all linear;
   color: rgba(0, 174, 255, 0.7);
   background: rgba(0, 174, 255, 0.2);
   border: 2px solid rgba(0, 174, 255, 0.2);
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 10px 20px 10px 20px;
+  z-index: 10;
+}
+
+#playerModal {
+  color: rgba(0, 174, 255, 0.7);
+  background: rgba(0, 174, 255, 0.2);
+  border: 2px solid rgba(0, 174, 255, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 150px;
+}
+
+#playerModal h1 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.resource {
+  position: absolute;
+  cursor: move;
+  background-color: rgba(243, 76, 90, 0.7);
+  border: 0px solid rgba(243, 76, 90, 0.7);
+  border-radius: 5px;
 }

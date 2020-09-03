@@ -10,15 +10,27 @@
   </head>
 
   <body>
-    <div id='alertModal'></div>
-    <div id='nameModal'>
-      <form action=''>
-        <input id='nameField' autocomplete='off' />
-        <div onClick='handleName()'>Submit</div>
-      </form>
+
+    <div id='gameScreen'>
+      <div id='alertModal'></div>
+      <div id='playerModal'>
+        <h1 id=1>People</h1>
+        <ul id='playerList'></ul>
+      </div>
     </div>
+
+    <div id='nameScreen'>
+      <div id='nameModal'>
+        <form action=''>
+          <input id='nameField' autocomplete='off' />
+          <div onClick='handleName()'>Submit</div>
+        </form>        
+      </div>
+    </div>
+
     <script src='/socket.io/socket.io.js'></script>
     <script src='main.js'></script>
+
   </body>
 
 </html>
