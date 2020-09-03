@@ -6,15 +6,6 @@ const gameScreen = document.querySelector('#gameScreen');
 const playerModal = document.querySelector('#playerModal');
 const playerList = document.querySelector('#playerList');
 
-socket.on('alert', alertMsg => {
-    console.log(alertMsg);
-    alertModal.style.opacity = '1';
-    alertModal.textContent = alertMsg;
-    window.setTimeout(() => {
-      alertModal.style.opacity = '0';
-    }, 1010);
-});
-
 const handleName = () => {
   const nameInput = document.querySelector('#nameField').value;
   socket.emit('received name', nameInput);
@@ -26,6 +17,22 @@ const handleName = () => {
   });
 }
 
+const deleteAllResources = () => {
+  const resourceDivs = document.querySelectorAll(`.resource`);
+  resourceDivs.forEach(resourceDiv => {
+    document.querySelector(`#${resourceDiv.id}`).remove();
+  });
+}
+
+socket.on('alert', alertMsg => {
+    console.log(alertMsg);
+    alertModal.style.opacity = '1';
+    alertModal.textContent = alertMsg;
+    window.setTimeout(() => {
+      alertModal.style.opacity = '0';
+    }, 1010);
+});
+
 socket.on('player list', players => {
   playerList.textContent = '';
   players.forEach(player => {
@@ -36,12 +43,10 @@ socket.on('player list', players => {
   });
 });
 
-const handleResourceClick = rsrcId => {
-  socket.emit('resource click', rsrcId);
-}
-
-socket.on('add resources', resources => {
-  console.log(resources);
+socket.on('update resources', resources => {
+  console.log('Deleting all resources.');
+  deleteAllResources();
+  console.log('Pulling all resources from server.');
   resources.forEach(rsrc => {
     const rsrcX = (window.innerWidth/2) + 
       rsrc.pos.xFromCenter - 
@@ -61,13 +66,7 @@ socket.on('add resources', resources => {
     resource.style.top = `${rsrcY}px`;
     gameScreen.appendChild(resource);
     resource.addEventListener('click', () => { 
-      handleResourceClick(rsrc.id);
+      socket.emit('resource click', rsrc.id);
     });
   })
-});
-
-socket.on('delete resources', resourceId => {
-  const resourceDiv = document.querySelector(`#${resourceId}`);
-  resourceDiv.remove();
-
 });

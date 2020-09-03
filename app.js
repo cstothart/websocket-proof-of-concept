@@ -10,7 +10,8 @@ const io = require('socket.io')(server);
 
 const gameConfig = {
   resources: {
-    maxNumber: 3,
+    spawnInterval: 1000,
+    maxNumber: 20,
     // Max resource spawn distance from window center.
     maxXDist: 400,
     maxYDist: 200,
@@ -26,12 +27,12 @@ const gameState = {
 }
 
 const deleteResource = resourceId => {
-  io.emit('delete resources', resourceId);
   gameState.resources.forEach((resource, index) => {
     if(resource.id === resourceId) {
       gameState.resources.splice(index, 1);
     }
   });
+  io.emit('update resources', gameState.resources);
 }
 
 const createResource = () => {
@@ -50,7 +51,7 @@ const createResource = () => {
     borderWidth: gameConfig.resources.borderWidth
   }
   gameState.resources.push(newResource);
-  io.emit('add resources', [newResource]);
+  io.emit('update resources', gameState.resources);
 }
 
 io.on('connection', socket => {
@@ -70,7 +71,7 @@ io.on('connection', socket => {
         inGame = true;
         socket.to('game room').emit('alert', `${socket.name} joined`);
         io.emit('player list', gameState.players);
-        socket.emit('add resources', gameState.resources);
+        io.emit('update resources', gameState.resources);
       });
     }
   });
@@ -94,4 +95,4 @@ setInterval(() => {
   if(gameState.resources.length < gameConfig.resources.maxNumber) {
     createResource();
   }
-}, 1);
+}, gameConfig.resources.spawnInterval);
