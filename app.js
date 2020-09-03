@@ -12,7 +12,8 @@ const gameConfig = {
   resources: {
     maxNumber: 3,
     // Max resource spawn distance from window center.
-    maxDistance: 200,
+    maxXDist: 400,
+    maxYDist: 200,
     width: 20,
     height: 20,
     borderWidth: 2
@@ -31,6 +32,25 @@ const deleteResource = resourceId => {
       gameState.resources.splice(index, 1);
     }
   });
+}
+
+const createResource = () => {
+  const resourceId = `r${Math.floor(Math.random()*1000000000).toString()}`;
+  const positivity = [1, -1][Math.floor(Math.random() * 2)];
+  const newResource = {
+    id: resourceId, 
+    pos: {
+      xFromCenter: Math.floor(Math.random()*gameConfig.resources.maxXDist)*positivity,
+      yFromCenter: Math.floor(Math.random()*gameConfig.resources.maxYDist)*positivity
+    },
+    size: {
+      width: gameConfig.resources.width,
+      height: gameConfig.resources.height
+    },
+    borderWidth: gameConfig.resources.borderWidth
+  }
+  gameState.resources.push(newResource);
+  io.emit('add resources', [newResource]);
 }
 
 io.on('connection', socket => {
@@ -72,20 +92,6 @@ io.on('connection', socket => {
 
 setInterval(() => {
   if(gameState.resources.length < gameConfig.resources.maxNumber) {
-    const resourceId = `r${Math.floor(Math.random()*1000000000).toString()}`;
-    const newResource = {
-      id: resourceId, 
-      pos: {
-        xFromCenter: Math.floor(Math.random()*gameConfig.resources.maxDistance),
-        yFromCenter: Math.floor(Math.random()*gameConfig.resources.maxDistance)
-      },
-      size: {
-        width: gameConfig.resources.width,
-        height: gameConfig.resources.height
-      },
-      borderWidth: gameConfig.resources.borderWidth
-    }
-    gameState.resources.push(newResource);
-    io.emit('add resources', [newResource]);
+    createResource();
   }
 }, 1);
