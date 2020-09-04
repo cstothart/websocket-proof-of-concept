@@ -21,7 +21,7 @@ const gameConfig = {
     borderWidth: 2,
   },
   names: {
-    maxCharacters: 15
+    maxCharacters: 20
   }
 };
 

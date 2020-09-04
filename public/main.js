@@ -26,12 +26,12 @@ const handleInput = () => {
   const nameCharactersUsed = nameField.value.length;
   const nameCharactersRemaining = nameMaxCharacters - nameCharactersUsed;
   if(nameCharactersRemaining < 0) {
-    charactersRemaining.style.color = 'rgba(243, 76, 90, 0.5)';
+    charactersRemaining.style.color = 'rgba(243, 76, 90, 0.6)';
   }
   else {
-    charactersRemaining.style.color = 'rgba(0, 174, 255, 0.5)';
+    charactersRemaining.style.color = 'rgba(0, 174, 255, 0.6)';
   }
-  charactersRemaining.textContent = `${nameCharactersRemaining} characters remaining`;  
+  charactersRemaining.textContent = `${nameCharactersRemaining}`;  
 }
 
 const deleteAllResources = () => {
@@ -44,7 +44,7 @@ const deleteAllResources = () => {
 socket.on('name max characters', max => {
   nameMaxCharacters = max;
   const nameCharactersRemaining = nameMaxCharacters - nameCharactersUsed;
-  charactersRemaining.textContent = `${nameCharactersRemaining} characters remaining`;  
+  charactersRemaining.textContent = `${nameCharactersRemaining}`;  
 });
 
 socket.on('alert', alertMsg => {
