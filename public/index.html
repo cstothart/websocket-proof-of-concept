@@ -22,10 +22,16 @@
     <div id='nameScreen'>
       <div id='nameModal'>
         <form action=''>
-          <div id='name'>
+          <div 
+            id='name' 
+            onmouseover='highlightNameDiv()'
+            onmouseout='unHighlightNameDiv()'
+          >
             <input 
               id='nameField' 
               onkeyup='handleInput()'
+              onfocus='highlightNameDiv()'
+              onblur='unHighlightNameDiv()'
               placeholder='Enter a name' 
               autocomplete='off' 
             />

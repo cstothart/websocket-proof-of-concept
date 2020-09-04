@@ -7,6 +7,7 @@ const playerModal = document.querySelector('#playerModal');
 const playerList = document.querySelector('#playerList');
 const charactersRemaining = document.querySelector('#charactersRemaining');
 const nameField = document.querySelector('#nameField');
+const nameDiv = document.querySelector('#name');
 
 let nameMaxCharacters = 0;
 let nameCharactersUsed = 0;
@@ -38,6 +39,19 @@ const deleteAllResources = () => {
   resourceDivs.forEach(resourceDiv => {
     document.querySelector(`#${resourceDiv.id}`).remove();
   });
+}
+
+const highlightNameDiv = () => {
+  nameDiv.style.border = '2px solid rgba(0, 174, 255, 0.7)';
+}
+
+const unHighlightNameDiv = () => {
+  const nameDivIsFocused = (document.activeElement === nameField);
+  if(nameDivIsFocused) {
+    nameDiv.style.border = '2px solid rgba(0, 174, 255, 0.7)';  
+  } else {
+    nameDiv.style.border = '2px solid rgba(0, 174, 255, 0.5)'; 
+  }
 }
 
 socket.on('name max characters', max => {
