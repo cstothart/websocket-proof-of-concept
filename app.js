@@ -13,8 +13,8 @@ const gameConfig = {
     spawnInterval: 1000,
     maxNumber: 100,
     // Max resource spawn distance from window center.
-    maxXDist: 400,
-    maxYDist: 200,
+    maxXDist: 375,
+    maxYDist: 150,
     width: 20,
     height: 20,
     borderWidth: 2
@@ -87,13 +87,17 @@ io.on('connection', socket => {
       gameState.players.splice(index, 1);
       socket.to('game room').emit('alert', `${socket.name} left`);
       io.emit('player list', gameState.players);
+      if(gameState.players.length === 0) {
+        gameState.resources = [];
+      };
     }
   });
-
 });
 
 setInterval(() => {
-  if(gameState.resources.length < gameConfig.resources.maxNumber) {
-    createResource();
+  if(gameState.players.length !== 0) {
+    if(gameState.resources.length < gameConfig.resources.maxNumber) {
+      createResource(); 
+    }
   }
 }, gameConfig.resources.spawnInterval);
