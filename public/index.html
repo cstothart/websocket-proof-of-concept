@@ -22,15 +22,17 @@
     <div id='nameScreen'>
       <div id='nameModal'>
         <form action=''>
-          <input 
-            id='nameField' 
-            onkeyup='handleInput()'
-            placeholder='Enter a name' 
-            autocomplete='off' 
-          />
+          <div id='name'>
+            <input 
+              id='nameField' 
+              onkeyup='handleInput()'
+              placeholder='Enter a name' 
+              autocomplete='off' 
+            />
+            <div id='charactersRemaining'></div>
+          </div>
           <div class='button' onClick='handleName()'>ENTER</div>
-        </form>    
-        <div id='charactersRemaining'></div>
+        </form>
       </div>
     </div>
 

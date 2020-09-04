@@ -22,24 +22,29 @@ html, body{
   height: 100vh;
 }
 
-input {
-  font-family: 'Oswald', sans-serif;
+#name {
+  display: flex;
+  flex-direction: column;
   color: rgba(0, 174, 255, 1);
   background: rgba(0, 174, 255, 0.2);
   border: 2px solid rgba(0, 174, 255, 0.5);
   border-radius: 5px;
-  font-size: 30px;
-  padding: 20px 20px 20px 20px; 
-  letter-spacing: 2px;
+  padding: 0px;
 }
 
-input:hover {
-  border: 2px solid rgba(0, 174, 255, 0.7);
+input {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  color: rgba(0, 174, 255, 7);
+  background: rgba(0, 174, 255, 0.0);
+  border: none;
+  margin: 20px 20px 0px 20px;
+  letter-spacing: 2px;
+  line-height: 15px;
 }
 
 input:focus {
   outline: none;
-  border: 2px solid rgba(0, 174, 255, 0.7);
 }
 
 ::placeholder {
@@ -47,11 +52,11 @@ input:focus {
 }
 
 #charactersRemaining {
-  position: relative;
-  top: -25px;
-  left: 316px;
-  font-size: 14px;
+  font-size: 15px;
   color: rgba(0, 174, 255, 0.6);
+  margin: 0px 5px 5px 0px;
+  align-self: flex-end;
+  line-height: 15px;
 }
 
 .button {
@@ -64,11 +69,11 @@ input:focus {
   background: rgba(0, 174, 255, 0.7);
   border: 2px solid rgba(0, 174, 255, 0.6);
   border-radius: 5px;
-  font-size: 30px;
-  padding: 20px;  
+  font-size: 30px; 
   letter-spacing: 2px;
   margin-left: 10px;
   cursor: pointer;
+  padding: 0px 20px 0px 20px;
 }
 
 .button:hover {
