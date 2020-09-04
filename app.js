@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const validator = require('validator');
 
 const port = 8000;
 
@@ -55,6 +56,17 @@ const createResource = () => {
   io.emit('update resources', gameState.resources);
 }
 
+const validateName = name => {
+  let validationResult = true;
+  if(validator.isEmpty(name, { ignore_whitespace: true })) {
+    validationResult = false;
+  }
+  if(!validator.isLength(name, { min: 0, max: 15 })) {
+    validationResult = false;
+  }
+  return(validationResult);
+}
+
 io.on('connection', socket => {
 
   let inGame = false;
@@ -62,11 +74,12 @@ io.on('connection', socket => {
   socket.join('name room');
 
   socket.on('received name', nameSubmitted => {
-    if(nameSubmitted == '') {
+    let name = nameSubmitted;
+    if(!validateName(name)) {
       socket.emit('validation response', false);
     } else {
       socket.emit('validation response', true);
-      socket.name = nameSubmitted;
+      socket.name = name;
       gameState.players.push(socket.name);
       socket.join('game room', () => {
         inGame = true;
