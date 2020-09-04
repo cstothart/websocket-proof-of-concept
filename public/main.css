@@ -59,7 +59,7 @@ input:focus {
   line-height: 15px;
 }
 
-.button {
+#nameButton {
   display: flex;
   align-items: center;
   justify-content: center;  
@@ -76,7 +76,7 @@ input:focus {
   padding: 0px 20px 0px 20px;
 }
 
-.button:hover {
+#nameButton:hover {
   color: rgba(0, 174, 255, 0.7);
   background: rgba(0, 174, 255, 0.7);
   border: 2px solid rgba(0, 174, 255, 0.6);
@@ -108,7 +108,7 @@ input:focus {
   width: 150px;
 }
 
-#nameModal form {
+#nameModal {
   display: flex;
 }
 

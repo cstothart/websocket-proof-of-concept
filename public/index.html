@@ -21,7 +21,6 @@
 
     <div id='nameScreen'>
       <div id='nameModal'>
-        <form action=''>
           <div 
             id='name' 
             onmouseover='highlightNameDiv()'
@@ -33,12 +32,11 @@
               onfocus='highlightNameDiv()'
               onblur='unHighlightNameDiv()'
               placeholder='Enter a name' 
-              autocomplete='off' 
+              autocomplete='off'
             />
             <div id='charactersRemaining'></div>
           </div>
-          <div class='button' onClick='handleName()'>ENTER</div>
-        </form>
+          <div id='nameButton' onClick='handleName()'>ENTER</div>
       </div>
     </div>
 

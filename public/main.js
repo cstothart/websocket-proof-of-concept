@@ -8,12 +8,13 @@ const playerList = document.querySelector('#playerList');
 const charactersRemaining = document.querySelector('#charactersRemaining');
 const nameField = document.querySelector('#nameField');
 const nameDiv = document.querySelector('#name');
+const nameButton = document.querySelector('#nameButton');
 
 let nameMaxCharacters = 0;
 let nameCharactersUsed = 0;
 
 const handleName = () => {
-  const nameInput = document.querySelector('#nameField').value;
+  const nameInput = nameField.value;
   socket.emit('received name', nameInput);
   socket.on('validation response', response => {
     if(response) {
@@ -53,6 +54,12 @@ const unHighlightNameDiv = () => {
     nameDiv.style.border = '2px solid rgba(0, 174, 255, 0.5)'; 
   }
 }
+
+nameField.addEventListener('keyup', event => {
+  if(event.keyCode === 13) {
+    nameButton.click();
+  }
+});
 
 socket.on('name max characters', max => {
   nameMaxCharacters = max;
