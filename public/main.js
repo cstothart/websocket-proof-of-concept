@@ -5,7 +5,11 @@ const nameScreen = document.querySelector('#nameScreen');
 const gameScreen = document.querySelector('#gameScreen');
 const playerModal = document.querySelector('#playerModal');
 const playerList = document.querySelector('#playerList');
-const badName = document.querySelector('#badName');
+const charactersRemaining = document.querySelector('#charactersRemaining');
+const nameField = document.querySelector('#nameField');
+
+let nameMaxCharacters = 0;
+let nameCharactersUsed = 0;
 
 const handleName = () => {
   const nameInput = document.querySelector('#nameField').value;
@@ -18,12 +22,30 @@ const handleName = () => {
   });
 }
 
+const handleInput = () => {
+  const nameCharactersUsed = nameField.value.length;
+  const nameCharactersRemaining = nameMaxCharacters - nameCharactersUsed;
+  if(nameCharactersRemaining < 0) {
+    charactersRemaining.style.color = 'rgba(243, 76, 90, 0.5)';
+  }
+  else {
+    charactersRemaining.style.color = 'rgba(0, 174, 255, 0.5)';
+  }
+  charactersRemaining.textContent = `${nameCharactersRemaining} characters remaining`;  
+}
+
 const deleteAllResources = () => {
   const resourceDivs = document.querySelectorAll(`.resource`);
   resourceDivs.forEach(resourceDiv => {
     document.querySelector(`#${resourceDiv.id}`).remove();
   });
 }
+
+socket.on('name max characters', max => {
+  nameMaxCharacters = max;
+  const nameCharactersRemaining = nameMaxCharacters - nameCharactersUsed;
+  charactersRemaining.textContent = `${nameCharactersRemaining} characters remaining`;  
+});
 
 socket.on('alert', alertMsg => {
     console.log(alertMsg);

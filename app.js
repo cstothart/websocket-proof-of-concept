@@ -18,7 +18,10 @@ const gameConfig = {
     maxYDist: 150,
     width: 20,
     height: 20,
-    borderWidth: 2
+    borderWidth: 2,
+  },
+  names: {
+    maxCharacters: 15
   }
 };
 
@@ -58,10 +61,11 @@ const createResource = () => {
 
 const validateName = name => {
   let validationResult = true;
+  const maxCharacters = gameConfig.names.maxCharacters;
   if(validator.isEmpty(name, { ignore_whitespace: true })) {
     validationResult = false;
   }
-  if(!validator.isLength(name, { min: 0, max: 15 })) {
+  if(!validator.isLength(name, { min: 0, max: maxCharacters })) {
     validationResult = false;
   }
   return(validationResult);
@@ -72,6 +76,7 @@ io.on('connection', socket => {
   let inGame = false;
 
   socket.join('name room');
+  socket.emit('name max characters', gameConfig.names.maxCharacters);
 
   socket.on('received name', nameSubmitted => {
     let name = nameSubmitted;

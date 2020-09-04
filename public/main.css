@@ -108,3 +108,7 @@ input:focus {
   border: 0px solid rgba(243, 76, 90, 0.7);
   border-radius: 5px;
 }
+
+#charactersRemaining {
+  color: rgba(0, 174, 255, 0.5);
+}
