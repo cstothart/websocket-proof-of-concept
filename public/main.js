@@ -61,6 +61,10 @@ nameField.addEventListener('keyup', event => {
   }
 });
 
+socket.on('connect', () => {
+  highlightNameDiv();
+});
+
 socket.on('name max characters', max => {
   nameMaxCharacters = max;
   const nameCharactersRemaining = nameMaxCharacters - nameCharactersUsed;
