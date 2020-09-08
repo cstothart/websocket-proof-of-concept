@@ -112,6 +112,16 @@ input:focus {
   display: flex;
 }
 
+#ieModal {
+  display: none;
+  color: rgba(0, 174, 255, 1);
+  background: rgba(0, 174, 255, 0.2);
+  border: 2px solid rgba(0, 174, 255, 0.5);
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 20px;
+}
+
 #playerModal h1 {
   font-size: 20px;
   margin-top: 0;
@@ -123,4 +133,16 @@ input:focus {
   background-color: rgba(243, 76, 90, 0.7);
   border: 0px solid rgba(243, 76, 90, 0.7);
   border-radius: 5px;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+
+  #nameModal {
+    display: none;
+  }
+
+  #ieModal {
+    display: flex;
+  }
+  
 }
