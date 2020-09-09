@@ -69,7 +69,7 @@ const validateName = name => {
   }
   if(!validator.isLength(name, { min: 0, max: maxCharacters })) {
     validationResult = false;
-    resultReason = 'Name exceeds maximum characters!'
+    resultReason = `Name exceeds ${maxCharacters} characters!`;
   }
   gameState.players.forEach(player => {
     if(name === player.name) {
@@ -93,8 +93,7 @@ io.on('connection', socket => {
     socket.emit('validation response', validation);
     if(validation.result) {
       socket.name = name;
-      socket.score = 0;
-      gameState.players.push({name: socket.name, score: socket.score});
+      gameState.players.push({name: socket.name, score: 0});
       socket.join('game room', () => {
         inGame = true;
         socket.to('game room').emit('alert', `${socket.name} joined`);
@@ -106,6 +105,12 @@ io.on('connection', socket => {
 
   socket.on('resource click', resourceId => {
     deleteResource(resourceId);
+    gameState.players.forEach((player, index) => {
+      if(player.name === socket.name) {
+        gameState.players[index].score += 1;
+      }
+    });
+    io.emit('players', gameState.players);
   });
 
   socket.on('disconnect', () => {

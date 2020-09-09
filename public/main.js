@@ -90,10 +90,19 @@ socket.on('alert', alertMsg => {
 socket.on('players', players => {
   playerList.textContent = '';
   players.forEach(player => {
-    const para = document.createElement('li');
-    const text = document.createTextNode(player.name);
-    para.appendChild(text);
-    playerList.appendChild(para);
+    const playerDiv = document.createElement('div');
+    playerDiv.classList.add('playerDiv');
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('nameDiv');
+    const scoreDiv = document.createElement('div');
+    scoreDiv.classList.add('scoreDiv');
+    const nameText = document.createTextNode(player.name);
+    const scoreText = document.createTextNode(player.score);
+    nameDiv.appendChild(nameText);
+    scoreDiv.appendChild(scoreText);
+    playerDiv.appendChild(nameDiv);
+    playerDiv.appendChild(scoreDiv);
+    playerList.appendChild(playerDiv);
   });
 });
 
