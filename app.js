@@ -85,11 +85,12 @@ io.on('connection', socket => {
     } else {
       socket.emit('validation response', true);
       socket.name = name;
-      gameState.players.push(socket.name);
+      socket.score = 0;
+      gameState.players.push({name: socket.name, score: socket.score});
       socket.join('game room', () => {
         inGame = true;
         socket.to('game room').emit('alert', `${socket.name} joined`);
-        io.emit('player list', gameState.players);
+        io.emit('players', gameState.players);
         io.emit('update resources', gameState.resources);
       });
     }
@@ -101,10 +102,11 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {
     if(inGame) {
-      const index = gameState.players.indexOf(socket.name);
-      gameState.players.splice(index, 1);
+      gameState.players = gameState.players.filter((player) => {
+        return player.name != socket.name;
+      });
       socket.to('game room').emit('alert', `${socket.name} left`);
-      io.emit('player list', gameState.players);
+      io.emit('players', gameState.players);
       if(gameState.players.length === 0) {
         gameState.resources = [];
       };

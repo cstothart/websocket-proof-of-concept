@@ -80,11 +80,11 @@ socket.on('alert', alertMsg => {
     }, 1010);
 });
 
-socket.on('player list', players => {
+socket.on('players', players => {
   playerList.textContent = '';
   players.forEach(player => {
     const para = document.createElement('li');
-    const text = document.createTextNode(player);
+    const text = document.createTextNode(player.name);
     para.appendChild(text);
     playerList.appendChild(para);
   });
