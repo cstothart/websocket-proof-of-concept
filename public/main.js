@@ -9,6 +9,7 @@ const charactersRemaining = document.querySelector('#charactersRemaining');
 const nameField = document.querySelector('#nameField');
 const nameDiv = document.querySelector('#name');
 const nameButton = document.querySelector('#nameButton');
+const validationMessage = document.querySelector('#validationMessage');
 
 let nameMaxCharacters = 0;
 let nameCharactersUsed = 0;
@@ -16,10 +17,16 @@ let nameCharactersUsed = 0;
 const handleName = () => {
   const nameInput = nameField.value;
   socket.emit('received name', nameInput);
-  socket.on('validation response', response => {
-    if(response) {
+  socket.on('validation response', validation => {
+    if(validation.result) {
       nameScreen.style.display = 'none';
       gameScreen.style.display = 'flex';
+    } else {
+      validationMessage.style.opacity = '1';
+      validationMessage.textContent = validation.resultReason;
+      window.setTimeout(() => {
+        validationMessage.style.opacity = '0';
+      }, 1010);
     }
   });
 }

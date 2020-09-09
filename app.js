@@ -61,14 +61,23 @@ const createResource = () => {
 
 const validateName = name => {
   let validationResult = true;
+  let resultReason = 'Name is valid!';
   const maxCharacters = gameConfig.names.maxCharacters;
   if(validator.isEmpty(name, { ignore_whitespace: true })) {
     validationResult = false;
+    resultReason = 'Name cannot be blank!';
   }
   if(!validator.isLength(name, { min: 0, max: maxCharacters })) {
     validationResult = false;
+    resultReason = 'Name exceeds maximum characters!'
   }
-  return(validationResult);
+  gameState.players.forEach(player => {
+    if(name === player.name) {
+      validationResult = false;
+      resultReason = 'Name already exists!'
+    }
+  });
+  return({result: validationResult, resultReason: resultReason});
 }
 
 io.on('connection', socket => {
@@ -80,10 +89,9 @@ io.on('connection', socket => {
 
   socket.on('received name', nameSubmitted => {
     let name = nameSubmitted;
-    if(!validateName(name)) {
-      socket.emit('validation response', false);
-    } else {
-      socket.emit('validation response', true);
+    const validation = validateName(name);
+    socket.emit('validation response', validation);
+    if(validation.result) {
       socket.name = name;
       socket.score = 0;
       gameState.players.push({name: socket.name, score: socket.score});

@@ -112,6 +112,16 @@ input:focus {
   display: flex;
 }
 
+#validationMessage {
+  position: relative;
+  top: 30px;
+  left: 0px;
+  margin-top: -23px;
+  opacity: 0;
+  transition: 1s all linear;
+  color: rgba(243, 76, 90, 0.7);
+}
+
 #ieModal {
   display: none;
   color: rgba(0, 174, 255, 1);
@@ -144,5 +154,5 @@ input:focus {
   #ieModal {
     display: flex;
   }
-  
+
 }
