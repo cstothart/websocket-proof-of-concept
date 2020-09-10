@@ -10,9 +10,17 @@ const nameField = document.querySelector('#nameField');
 const nameDiv = document.querySelector('#name');
 const nameButton = document.querySelector('#nameButton');
 const validationMessage = document.querySelector('#validationMessage');
+const chatMessages = document.querySelector('#chatMessages');
+const chatInput = document.querySelector('#chatInput');
+const chatButton = document.querySelector('#chatButton');
+const chatModal = document.querySelector('#chatModal');
 
 let nameMaxCharacters = 0;
 let nameCharactersUsed = 0;
+
+const clientState = {
+  chatOpen: false
+}
 
 const handleName = () => {
   const nameInput = nameField.value;
@@ -29,6 +37,12 @@ const handleName = () => {
       }, 1010);
     }
   });
+}
+
+const handleChatInput = () => {
+  const message = chatInput.value;
+  socket.emit('received chat message', message);
+  chatInput.value = '';
 }
 
 const handleInput = () => {
@@ -62,9 +76,25 @@ const unHighlightNameDiv = () => {
   }
 }
 
+const toggleChat = () => {
+  if(!clientState.chatOpen) {
+    chatModal.style.bottom = '0px';
+    clientState.chatOpen = true;
+  } else {
+    chatModal.style.bottom = '-330px';
+    clientState.chatOpen = false;
+  }
+}
+
 nameField.addEventListener('keyup', event => {
   if(event.keyCode === 13) {
     nameButton.click();
+  }
+});
+
+chatInput.addEventListener('keyup', event => {
+  if(event.keyCode === 13) {
+    chatButton.click();
   }
 });
 
@@ -107,9 +137,7 @@ socket.on('players', players => {
 });
 
 socket.on('update resources', resources => {
-  console.log('Deleting all resources.');
   deleteAllResources();
-  console.log('Pulling all resources from server.');
   resources.forEach(rsrc => {
     const rsrcX = (window.innerWidth/2) + 
       rsrc.pos.xFromCenter - 
@@ -132,4 +160,23 @@ socket.on('update resources', resources => {
       socket.emit('resource click', rsrc.id);
     });
   })
+});
+
+socket.on('chat messages', messages => {
+  chatMessages.textContent = '';
+  messages.forEach(message => {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('messageDiv');
+    const messageContentDiv = document.createElement('div');
+    messageContentDiv.classList.add('messageContentDiv');
+    const messageSenderDiv = document.createElement('div');
+    messageSenderDiv.classList.add('messageSenderDiv');
+    const messageContentText = document.createTextNode(message.message);
+    const messageSenderText = document.createTextNode(`${message.sender}:`);
+    messageContentDiv.appendChild(messageContentText);
+    messageSenderDiv.appendChild(messageSenderText);
+    messageDiv.appendChild(messageSenderDiv);
+    messageDiv.appendChild(messageContentDiv);
+    chatMessages.appendChild(messageDiv);    
+  });
 });

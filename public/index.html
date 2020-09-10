@@ -12,7 +12,7 @@
   <body>
 
     <div id='nameScreen'>
-      <div id='ieModal'>We noticed you are using Internet Explorer. Please don't</div>
+      <div id='ieModal'>We noticed you are using Internet Explorer. Please don't.</div>
       <div id='nameModal'>
           <div 
             id='name' 
@@ -39,6 +39,19 @@
       <div id='alertModal'></div>
       <div id='playerModal'>
         <div id='playerList'></div>
+      </div>
+      <div id='chatModal'>
+        <div id='chatHeader' onClick='toggleChat()'>
+          <h1>CHAT</h1>
+        </div>
+        <div id='chatMessages'></div>
+        <div id='chatField'>
+          <input 
+            id='chatInput' 
+            placeholder='Enter message'
+          />
+          <div id='chatButton' onClick='handleChatInput()'>SEND</div>
+        </div>
       </div>
     </div>
 

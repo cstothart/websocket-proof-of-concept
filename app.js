@@ -21,13 +21,14 @@ const gameConfig = {
     borderWidth: 2,
   },
   names: {
-    maxCharacters: 20
+    maxCharacters: 10
   }
 };
 
 const gameState = {
   players: [],
-  resources: []
+  resources: [],
+  chatMessages: []
 }
 
 const deleteResource = resourceId => {
@@ -98,6 +99,7 @@ io.on('connection', socket => {
         inGame = true;
         socket.to('game room').emit('alert', `${socket.name} joined`);
         io.emit('players', gameState.players);
+        io.emit('chat messages', gameState.chatMessages);
         io.emit('update resources', gameState.resources);
       });
     }
@@ -113,6 +115,11 @@ io.on('connection', socket => {
     io.emit('players', gameState.players);
   });
 
+  socket.on('received chat message', message => {
+    gameState.chatMessages.push({sender: socket.name, message: message});
+    io.emit('chat messages', gameState.chatMessages);
+  }); 
+
   socket.on('disconnect', () => {
     if(inGame) {
       gameState.players = gameState.players.filter((player) => {
@@ -122,6 +129,7 @@ io.on('connection', socket => {
       io.emit('players', gameState.players);
       if(gameState.players.length === 0) {
         gameState.resources = [];
+        gameState.chatMessages = [];
       };
     }
   });
