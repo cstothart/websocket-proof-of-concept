@@ -155,7 +155,7 @@ html, body{
 #chatModal {
   position: absolute;
   left: 10px;
-  bottom: -330px;
+  bottom: -338px;
   transition: .250s all linear;
   display: flex;
   flex-direction: column;
@@ -170,6 +170,9 @@ html, body{
 }
 
 #chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   padding: 5px;
   letter-spacing: 1px;
   cursor: pointer;
@@ -177,9 +180,18 @@ html, body{
   border-bottom: 2px solid rgba(0, 174, 255, 0.5);
 }
 
+#chatDownArrow {
+  display: none;
+}
+
 #chatHeader h1 {
   font-size: 20px;
   margin: 0px;
+}
+
+.smallSvgBox {
+  width: 20px;
+  height: 20px;
 }
 
 #chatMessages {
@@ -208,10 +220,10 @@ html, body{
 
 #chatInput {
   font-family: 'Oswald', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(0, 174, 255, 7);
   background: rgba(0, 174, 255, 0.0);
-  font-size: 15px;
+  font-size: 20px;
   border: none;
   padding: 0px;
   width: 230px;
@@ -226,7 +238,7 @@ html, body{
   align-items: center;
   justify-content: center;  
   font-family: 'Oswald', sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   letter-spacing: 1px;
   transition: .10s all linear;  
   color: rgb(235, 235, 235);
@@ -252,13 +264,13 @@ html, body{
 
 .messageSenderDiv {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .messageContentDiv {
   margin-left: 10px;
   word-break: break-word;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .resource {

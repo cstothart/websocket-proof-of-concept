@@ -14,6 +14,9 @@ const chatMessages = document.querySelector('#chatMessages');
 const chatInput = document.querySelector('#chatInput');
 const chatButton = document.querySelector('#chatButton');
 const chatModal = document.querySelector('#chatModal');
+const chatHeader = document.querySelector('#chatHeader');
+const chatUpArrow = document.querySelector('#chatUpArrow');
+const chatDownArrow = document.querySelector('#chatDownArrow');
 
 let nameMaxCharacters = 0;
 let nameCharactersUsed = 0;
@@ -77,12 +80,19 @@ const unHighlightNameDiv = () => {
 }
 
 const toggleChat = () => {
-  if(!clientState.chatOpen) {
-    chatModal.style.bottom = '0px';
-    clientState.chatOpen = true;
-  } else {
-    chatModal.style.bottom = '-330px';
+  if(clientState.chatOpen) {
+    chatModal.style.bottom = '-338px';
+    chatUpArrow.style.display = 'inline';
+    chatDownArrow.style.display = 'none';
     clientState.chatOpen = false;
+  } else {
+    window.setTimeout(() => {
+      chatInput.focus();
+    }, 250)  // Time must match #chatModal transition time (in ms).
+    chatModal.style.bottom = '0px';
+    chatUpArrow.style.display = 'none';
+    chatDownArrow.style.display = 'inline';    
+    clientState.chatOpen = true;
   }
 }
 
@@ -95,6 +105,15 @@ nameField.addEventListener('keyup', event => {
 chatInput.addEventListener('keyup', event => {
   if(event.keyCode === 13) {
     chatButton.click();
+  }
+});
+
+
+document.addEventListener('click', event => {
+  if(event.target === gameScreen) {
+    if(clientState.chatOpen) {
+      toggleChat();
+    }    
   }
 });
 
