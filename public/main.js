@@ -81,7 +81,7 @@ const unHighlightNameDiv = () => {
 
 const toggleChat = () => {
   if(clientState.chatOpen) {
-    chatModal.style.bottom = '-338px';
+    chatModal.style.bottom = '-268px';
     chatUpArrow.style.display = 'inline';
     chatDownArrow.style.display = 'none';
     clientState.chatOpen = false;
